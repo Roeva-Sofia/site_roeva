@@ -1,0 +1,66 @@
+/* Стили для печати */
+@media print {
+  /* Скрываем ненужные элементы */
+  nav,
+  .btn,
+  .no-print,
+  .filter-buttons,
+  .footer,
+  .notification {
+    display: none !important;
+  }
+
+  /* Основные стили для печати */
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+    color: #000 !important;
+    background: #fff !important;
+  }
+
+  /* Убираем фон и рамки */
+  .card,
+  .table {
+    border: 1px solid #ddd !important;
+    background: #fff !important;
+  }
+
+  /* Улучшаем читаемость таблиц */
+  .table th,
+  .table td {
+    border: 1px solid #ddd !important;
+    padding: 4px !important;
+  }
+
+  /* Убираем тени и скругления */
+  .shadow,
+  .rounded,
+  .shadow-sm {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  /* Контейнеры для печати */
+  .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Разрывы страниц */
+  .page-break {
+    page-break-before: always;
+  }
+
+  /* Ссылки */
+  a {
+    color: #000 !important;
+    text-decoration: none !important;
+  }
+
+  a[href]:after {
+    content: " (" attr(href) ")";
+    font-size: 90%;
+  }
+}

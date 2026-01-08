@@ -1,0 +1,428 @@
+/* Стили для страницы "Мои заказы" */
+
+/* Таблица заказов */
+#orders-table-body tr {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#orders-table-body tr:hover {
+  background-color: rgba(0, 123, 255, 0.05);
+}
+
+/* Карточка заказа для мобильных */
+.order-card-mobile {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.order-card-mobile:hover {
+  border-color: #0d6efd;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
+}
+
+/* Статусы заказов */
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.status-new {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.status-delivered {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-cancelled {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.status-processing {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+/* Кнопки действий */
+.btn-action {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-action:hover {
+  transform: translateY(-2px);
+}
+
+.btn-view {
+  background-color: #e7f3ff;
+  color: #0d6efd;
+  border: 1px solid #cfe2ff;
+}
+
+.btn-edit {
+  background-color: #fff3cd;
+  color: #ffc107;
+  border: 1px solid #ffeaa7;
+}
+
+.btn-delete {
+  background-color: #f8d7da;
+  color: #dc3545;
+  border: 1px solid #f5c6cb;
+}
+
+/* Модальные окна */
+.modal-order-info .modal-header {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.modal-order-info .info-item {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.modal-order-info .info-item:last-child {
+  border-bottom: none;
+}
+
+.modal-order-info .info-label {
+  font-weight: 600;
+  color: #495057;
+  min-width: 150px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .table-desktop {
+    display: none;
+  }
+
+  .orders-mobile {
+    display: block;
+  }
+
+  .order-card-mobile .d-flex {
+    flex-wrap: wrap;
+  }
+
+  .order-card-mobile .btn-action {
+    margin: 0.25rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .orders-mobile {
+    display: none;
+  }
+}
+
+/* Анимация загрузки */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.order-row {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+/* Пагинация */
+.pagination .page-link {
+  border-radius: 6px;
+  margin: 0 3px;
+  border: 1px solid #dee2e6;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+/* Фильтры */
+.filter-group {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.filter-group .form-label {
+  font-weight: 500;
+  color: #495057;
+}
+
+/* Пустая история */
+.empty-history {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.empty-history-icon {
+  font-size: 4rem;
+  color: #dee2e6;
+  margin-bottom: 1rem;
+}
+
+/* Информация о доставке в таблице */
+.delivery-time-info {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.delivery-time-info .bi {
+  margin-right: 0.25rem;
+}
+
+.order-row {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.order-row:hover {
+  background-color: rgba(13, 110, 253, 0.05);
+}
+
+/* Карточки заказов для мобильных */
+.order-card-mobile {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.order-card-mobile:hover {
+  border-color: #0d6efd;
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.1);
+}
+
+/* Кнопки действий */
+.btn-action {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.btn-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-view {
+  background-color: #e7f3ff;
+  color: #0d6efd;
+}
+
+.btn-view:hover {
+  background-color: #d0e7ff;
+}
+
+.btn-edit {
+  background-color: #fff3cd;
+  color: #ffc107;
+}
+
+.btn-edit:hover {
+  background-color: #ffeaa7;
+}
+
+.btn-delete {
+  background-color: #f8d7da;
+  color: #dc3545;
+}
+
+.btn-delete:hover {
+  background-color: #f5c6cb;
+}
+
+/* Модальные окна */
+.modal-order-details .modal-header {
+  background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+  color: white;
+}
+
+.info-item {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f1f1f1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-weight: 600;
+  color: #495057;
+  min-width: 140px;
+}
+
+.info-value {
+  flex: 1;
+  text-align: right;
+  color: #6c757d;
+}
+
+/* Форма редактирования */
+.delivery-type-buttons {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+}
+
+.form-check-input:checked {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.order-row {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .table-responsive {
+    border: none;
+  }
+
+  .btn-action {
+    width: 36px;
+    height: 36px;
+    font-size: 0.875rem;
+  }
+
+  .modal-dialog {
+    margin: 0.5rem;
+  }
+
+  .info-item {
+    flex-direction: column;
+  }
+
+  .info-label {
+    min-width: auto;
+    margin-bottom: 0.25rem;
+  }
+
+  .info-value {
+    text-align: left;
+  }
+}
+
+/* Статусы заказов */
+.order-status {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.status-new {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.status-delivered {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-cancelled {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.status-processing {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+/* Состав заказа в модальном окне */
+.order-composition-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.order-composition-list li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f1f1f1;
+  display: flex;
+  justify-content: space-between;
+}
+
+.order-composition-list li:last-child {
+  border-bottom: none;
+}
+
+/* Пустое состояние */
+.empty-orders-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #6c757d;
+}
+
+.empty-orders-state .icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+/* Загрузка */
+.loading-spinner {
+  text-align: center;
+  padding: 2rem;
+}
+
+.loading-spinner .spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Поле ввода времени */
+.delivery-time-picker {
+  font-family: monospace;
+}

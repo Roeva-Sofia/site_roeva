@@ -1,0 +1,104 @@
+/* Базовые стили для всего сайта */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Отступ для фиксированной навигации */
+.header {
+  margin-bottom: 76px;
+}
+
+/* Hero секция */
+.hero-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+/* Карточки блюд */
+.dish-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.dish-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  border-color: #ff6b6b;
+}
+
+.dish-card.selected {
+  border-color: #ff6b6b;
+  background-color: #fff5f5;
+}
+
+.dish-card img {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Кнопки фильтров */
+.filter-btn {
+  transition: all 0.3s ease;
+}
+
+.filter-btn.active {
+  background-color: #ff6b6b !important;
+  border-color: #ff6b6b !important;
+  color: white !important;
+}
+
+/* Стили для таблицы заказов */
+.order-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+/* Модальные окна */
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Уведомления */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .hero-section .display-4 {
+    font-size: 2rem;
+  }
+
+  .dish-card img {
+    height: 150px;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}

@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Оформить заказ - Food Construct</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Стили -->
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/make-order.css" />
+    <link rel="stylesheet" href="css/print.css" media="print" />
+
+    <!-- Иконки Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+    />
+
+    <!-- Flatpickr для выбора времени -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+  </head>
+  <body>
+    <!-- Шапка сайта -->
+    <header class="header">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="index.html">
+            <h1 class="mb-0">Food Construct</h1>
+          </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Главная</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="assemble-lunch.html">Собрать ланч</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="make-order.html"
+                  >Оформить заказ</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="orders.html">Мои заказы</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="login.html">Вход</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#contacts">Контакты</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Основное содержимое -->
+    <main class="container py-5 mt-5">
+      <h2 class="mb-4">Оформление заказа</h2>
+
+      <!-- Состав заказа (из localStorage) -->
+      <section id="order-composition" class="mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h3>Состав заказа</h3>
+          <button id="clear-order" class="btn btn-outline-danger btn-sm">
+            <i class="bi bi-trash me-1"></i> Очистить заказ
+          </button>
+        </div>
+
+        <div id="order-items-container" class="row g-3">
+          <!-- Блюда будут загружены динамически из localStorage -->
+          <div class="col-12 text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Загрузка...</span>
+            </div>
+            <p class="mt-2">Загружаем состав заказа...</p>
+          </div>
+        </div>
+
+        <!-- Если заказ пуст -->
+        <div id="empty-order-message" class="d-none text-center py-5">
+          <i class="bi bi-cart display-4 text-muted"></i>
+          <h4 class="mt-3">Ваш заказ пуст</h4>
+          <p class="text-muted">
+            Чтобы добавить блюда в заказ, перейдите на страницу
+            <a href="assemble-lunch.html" class="text-decoration-none"
+              >Собрать ланч</a
+            >
+          </p>
+          <a href="assemble-lunch.html" class="btn btn-primary mt-3">
+            <i class="bi bi-arrow-left me-2"></i> Вернуться к выбору блюд
+          </a>
+        </div>
+      </section>
+
+      <!-- Форма оформления заказа -->
+      <section id="order-form-section" class="row">
+        <!-- Левая колонка - Сводка заказа -->
+        <div class="col-lg-6">
+          <div class="card shadow-sm mb-4">
+            <div class="card-header bg-light">
+              <h4 class="mb-0">Сводка заказа</h4>
+            </div>
+            <div class="card-body">
+              <div id="order-summary">
+                <!-- Сводка заказа будет заполнена динамически -->
+                <p class="text-muted text-center py-3">Заказ не сформирован</p>
+              </div>
+
+              <hr />
+
+              <div
+                class="d-flex justify-content-between align-items-center mb-2"
+              >
+                <span>Стоимость блюд:</span>
+                <span id="dishes-total">0 ₽</span>
+              </div>
+              <div
+                class="d-flex justify-content-between align-items-center mb-2"
+              >
+                <span>Доставка:</span>
+                <span class="text-success">Бесплатно</span>
+              </div>
+              <hr />
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Итого к оплате:</h5>
+                <h4 class="mb-0 text-primary" id="order-total-price">0 ₽</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Правая колонка - Форма данных -->
+        <div class="col-lg-6">
+          <form id="order-form" class="card shadow-sm">
+            <div class="card-header bg-light">
+              <h4 class="mb-0">Данные для доставки</h4>
+            </div>
+            <div class="card-body">
+              <!-- Имя -->
+              <div class="mb-3">
+                <label for="full_name" class="form-label"
+                  >Имя и фамилия *</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="full_name"
+                  name="full_name"
+                  required
+                />
+                <div class="invalid-feedback">Пожалуйста, введите ваше имя</div>
+              </div>
+
+              <!-- Email -->
+              <div class="mb-3">
+                <label for="email" class="form-label">Email *</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Пожалуйста, введите корректный email
+                </div>
+              </div>
+
+              <!-- Телефон -->
+              <div class="mb-3">
+                <label for="phone" class="form-label">Номер телефона *</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="phone"
+                  name="phone"
+                  pattern="\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}"
+                  placeholder="+7 999 123-45-67"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Пожалуйста, введите корректный номер телефона
+                </div>
+              </div>
+
+              <!-- Адрес доставки -->
+              <div class="mb-3">
+                <label for="delivery_address" class="form-label"
+                  >Адрес доставки *</label
+                >
+                <textarea
+                  class="form-control"
+                  id="delivery_address"
+                  name="delivery_address"
+                  rows="2"
+                  required
+                ></textarea>
+                <div class="form-text">
+                  Доставка осуществляется только по Москве
+                </div>
+                <div class="invalid-feedback">
+                  Пожалуйста, введите адрес доставки
+                </div>
+              </div>
+
+              <!-- Тип доставки -->
+              <div class="mb-3">
+                <label class="form-label">Время доставки *</label>
+                <div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="delivery_type"
+                      id="delivery_now"
+                      value="now"
+                      checked
+                    />
+                    <label class="form-check-label" for="delivery_now">
+                      Как можно скорее (с 7:00 до 23:00)
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="delivery_type"
+                      id="delivery_by_time"
+                      value="by_time"
+                    />
+                    <label class="form-check-label" for="delivery_by_time">
+                      К указанному времени
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Время доставки (скрыто по умолчанию) -->
+              <div class="mb-3" id="delivery_time_group" style="display: none">
+                <label for="delivery_time" class="form-label"
+                  >Укажите время доставки *</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="delivery_time"
+                  name="delivery_time"
+                  placeholder="Выберите время"
+                  readonly
+                />
+                <div class="form-text">
+                  Доступное время доставки с 7:00 до 23:00 с шагом 5 минут
+                </div>
+                <div class="invalid-feedback">
+                  Пожалуйста, выберите время доставки
+                </div>
+              </div>
+
+              <!-- Подписка -->
+              <div class="mb-3 form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="subscribe"
+                  name="subscribe"
+                  value="1"
+                />
+                <label class="form-check-label" for="subscribe">
+                  Получать информацию о скидках и акциях
+                </label>
+              </div>
+
+              <!-- Комментарий -->
+              <div class="mb-3">
+                <label for="comment" class="form-label"
+                  >Комментарий к заказу</label
+                >
+                <textarea
+                  class="form-control"
+                  id="comment"
+                  name="comment"
+                  rows="3"
+                  placeholder="Например: позвонить перед доставкой, оставить у двери и т.д."
+                ></textarea>
+              </div>
+
+              <!-- Кнопки формы -->
+              <div class="d-grid gap-2">
+                <button
+                  type="submit"
+                  id="submit-order"
+                  class="btn btn-primary btn-lg"
+                >
+                  <i class="bi bi-check-circle me-2"></i> Оформить заказ
+                </button>
+                <button
+                  type="button"
+                  id="reset-form"
+                  class="btn btn-outline-secondary"
+                >
+                  Сбросить форму
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- Футер -->
+    <footer id="contacts" class="footer bg-dark text-white py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <h3 class="mb-4">Контакты</h3>
+            <p><i class="bi bi-telephone me-2"></i> +7-000-000-00-00</p>
+            <p><i class="bi bi-envelope me-2"></i> info@foodconstruct.ru</p>
+            <p><i class="bi bi-clock me-2"></i> Ежедневно с 7:00 до 23:00</p>
+            <p>
+              <i class="bi bi-geo-alt me-2"></i> Москва, доставка по всему
+              городу
+            </p>
+          </div>
+          <div class="col-lg-6">
+            <h3 class="mb-4">Нужна помощь?</h3>
+            <p>
+              Если у вас возникли проблемы с оформлением заказа, позвоните нам
+              или напишите в WhatsApp
+            </p>
+            <a href="tel:+70000000000" class="btn btn-outline-light me-2">
+              <i class="bi bi-telephone me-1"></i> Позвонить
+            </a>
+            <a
+              href="https://wa.me/70000000000"
+              class="btn btn-outline-light"
+              target="_blank"
+            >
+              <i class="bi bi-whatsapp me-1"></i> WhatsApp
+            </a>
+          </div>
+        </div>
+        <div class="row mt-4 pt-4 border-top">
+          <div class="col text-center">
+            <p class="mb-0">&copy; 2025 Food Construct. Все права защищены.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Контейнер для модальных окон -->
+    <div id="modal-container"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Flatpickr для выбора времени -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ru.js"></script>
+
+    <!-- Наши скрипты -->
+    <script src="js/config.js"></script>
+    <script src="js/localStorage.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/order.js"></script>
+    <script src="js/validation.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/clearOrder.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+
+    <!-- Инициализация страницы оформления заказа -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log("Страница оформления заказа загружена");
+
+        // Инициализация авторизации
+        if (typeof initAuth === 'function') {
+            initAuth();
+        }
+
+        // Проверяем наличие заказа в URL-параметрах
+        const urlParams = new URLSearchParams(window.location.search);
+        const forceLoad = urlParams.get("forceLoad");
+
+        // ОЧЕНЬ ВАЖНО: Принудительная инициализация заказа
+        if (typeof initializeCurrentOrder === "function") {
+          console.log("Используем initializeCurrentOrder");
+          initializeCurrentOrder();
+        } else if (typeof initOrderFromStorage === "function") {
+          console.log("Используем initOrderFromStorage");
+          initOrderFromStorage();
+        } else {
+          console.error("Функции инициализации заказа не найдены!");
+        }
+
+        // Принудительно загружаем заказ из localStorage
+        const rawOrder = localStorage.getItem("foodconstruct_current_order");
+        console.log("Сырой заказ из localStorage:", rawOrder);
+
+        if (rawOrder) {
+          try {
+            const parsed = JSON.parse(rawOrder);
+            console.log("Парсированный заказ:", parsed);
+
+            // Если есть window.currentOrder, обновляем его
+            if (window.currentOrder) {
+              window.currentOrder = {
+                soup: parsed.soup || null,
+                mainCourse: parsed.mainCourse || parsed.mainСourse || null,
+                salad: parsed.salad || null,
+                drink: parsed.drink || null,
+                dessert: parsed.dessert || null,
+                total: parsed.total || 0,
+              };
+              console.log(
+                "Обновленный window.currentOrder:",
+                window.currentOrder
+              );
+            }
+          } catch (e) {
+            console.error("Ошибка парсинга:", e);
+          }
+        }
+
+        // Загружаем состав заказа
+        setTimeout(() => {
+          loadOrderComposition();
+        }, 100); // Небольшая задержка для гарантии инициализации
+
+        // Инициализируем остальные компоненты
+        initDeliveryTimePicker();
+        initDeliveryTypeToggle();
+        initOrderForm();
+
+        // Обработчики кнопок
+        document
+          .getElementById("clear-order")
+          ?.addEventListener("click", function () {
+            clearOrderConfirmation();
+          });
+
+        document
+          .getElementById("reset-form")
+          ?.addEventListener("click", function () {
+            document.getElementById("order-form").reset();
+            document.getElementById("delivery_time_group").style.display =
+              "none";
+          });
+
+        // Кнопка для отладки
+        const debugBtn = document.createElement("button");
+        debugBtn.textContent = "DEBUG: Проверить заказ";
+        debugBtn.className = "btn btn-warning btn-sm position-fixed";
+        debugBtn.style.bottom = "10px";
+        debugBtn.style.right = "10px";
+        debugBtn.style.zIndex = "9999";
+        debugBtn.onclick = function () {
+          console.log("=== РУЧНАЯ ПРОВЕРКА ===");
+          console.log(
+            "localStorage:",
+            localStorage.getItem("foodconstruct_current_order")
+          );
+          console.log("window.currentOrder:", window.currentOrder);
+          console.log(
+            "getCurrentOrder():",
+            typeof getCurrentOrder === "function"
+              ? getCurrentOrder()
+              : "нет функции"
+          );
+          console.log(
+            "getSelectedDishes():",
+            typeof getSelectedDishes === "function"
+              ? getSelectedDishes()
+              : "нет функции"
+          );
+          loadOrderComposition();
+        };
+        document.body.appendChild(debugBtn);
+      });
+
+      // Загрузка состава заказа (УПРОЩЕННАЯ ВЕРСИЯ)
+      function loadOrderComposition() {
+        console.log("=== loadOrderComposition вызвана ===");
+
+        const orderContainer = document.getElementById("order-items-container");
+        const emptyMessage = document.getElementById("empty-order-message");
+        const orderSummary = document.getElementById("order-summary");
+        const dishesTotalEl = document.getElementById("dishes-total");
+        const orderTotalEl = document.getElementById("order-total-price");
+
+        // Способ 1: Используем getSelectedDishes если доступна
+        let selectedDishes = [];
+
+        if (typeof getSelectedDishes === "function") {
+          selectedDishes = getSelectedDishes();
+          console.log(
+            "Получены блюда через getSelectedDishes:",
+            selectedDishes
+          );
+        } else {
+          // Способ 2: Пытаемся получить из localStorage напрямую
+          console.log(
+            "Функция getSelectedDishes не найдена, загружаем напрямую из localStorage"
+          );
+          const rawOrder = localStorage.getItem("foodconstruct_current_order");
+          if (rawOrder) {
+            try {
+              const order = JSON.parse(rawOrder);
+              console.log("Заказ из localStorage:", order);
+
+              // Преобразуем объект заказа в массив блюд
+              [
+                "soup",
+                "mainCourse",
+                "mainСourse",
+                "salad",
+                "drink",
+                "dessert",
+              ].forEach((key) => {
+                if (order[key]) {
+                  selectedDishes.push({
+                    category:
+                      key === "mainCourse" || key === "mainСourse"
+                        ? "main-course"
+                        : key,
+                    id: order[key].id,
+                    name: order[key].name,
+                    price: order[key].price,
+                    image: order[key].image || "images/placeholder.jpg",
+                    count: order[key].count || "250 г",
+                  });
+                }
+              });
+              console.log("Преобразованные блюда:", selectedDishes);
+            } catch (e) {
+              console.error("Ошибка:", e);
+            }
+          }
+        }
+
+        // Проверяем, есть ли блюда
+        if (selectedDishes.length === 0) {
+          console.log("Заказ пуст, показываем сообщение");
+          if (orderContainer) {
+            orderContainer.innerHTML = "";
+            orderContainer.classList.add("d-none");
+          }
+          if (emptyMessage) emptyMessage.classList.remove("d-none");
+
+          if (orderSummary) {
+            orderSummary.innerHTML =
+              '<p class="text-muted text-center py-3">Заказ не сформирован</p>';
+          }
+          if (dishesTotalEl) dishesTotalEl.textContent = "0 ₽";
+          if (orderTotalEl) orderTotalEl.textContent = "0 ₽";
+
+          const submitButton = document.getElementById("submit-order");
+          if (submitButton) submitButton.disabled = true;
+          return;
+        }
+
+        console.log("Есть блюда в заказе, отображаем их");
+
+        // Отображаем блюда
+        if (emptyMessage) emptyMessage.classList.add("d-none");
+        if (orderContainer) {
+          orderContainer.classList.remove("d-none");
+          orderContainer.innerHTML = "";
+
+          selectedDishes.forEach((dish) => {
+            const dishCard = createOrderItemCard(dish);
+            orderContainer.appendChild(dishCard);
+          });
+        }
+
+        // Обновляем сводку
+        updateOrderSummaryDisplay(selectedDishes);
+
+        // Активируем кнопку отправки
+        const submitButton = document.getElementById("submit-order");
+        if (submitButton) submitButton.disabled = false;
+      }
+
+      // Создание карточки блюда (УПРОЩЕННАЯ)
+      function createOrderItemCard(dish) {
+        const col = document.createElement("div");
+        col.className = "col-md-6 col-lg-4 mb-3";
+
+        col.innerHTML = `
+      <div class="card h-100">
+        <img src="${dish.image || "images/placeholder.jpg"}" 
+             class="card-img-top" alt="${dish.name}" 
+             style="height: 150px; object-fit: cover;">
+        <div class="card-body">
+          <h6 class="card-title">${dish.name}</h6>
+          <p class="card-text text-muted small">${dish.count || "250 г"}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-primary fw-bold">${formatPrice(dish.price)}</span>
+            <button class="btn btn-sm btn-outline-danger remove-item" 
+                    data-category="${dish.category}">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+        return col;
+      }
+
+      // Обновление сводки (УПРОЩЕННАЯ)
+      function updateOrderSummaryDisplay(dishes) {
+        const orderSummary = document.getElementById("order-summary");
+        const dishesTotalEl = document.getElementById("dishes-total");
+        const orderTotalEl = document.getElementById("order-total-price");
+
+        if (!orderSummary) return;
+
+        orderSummary.innerHTML = "";
+
+        // Группируем по категориям для отображения
+        const categories = {
+          soup: "Суп",
+          "main-course": "Главное блюдо",
+          salad: "Салат/Стартер",
+          drink: "Напиток",
+          dessert: "Десерт",
+        };
+
+        let total = 0;
+
+        dishes.forEach((dish) => {
+          const itemDiv = document.createElement("div");
+          itemDiv.className =
+            "order-summary-item d-flex justify-content-between mb-2";
+
+          const categoryName = categories[dish.category] || dish.category;
+          itemDiv.innerHTML = `
+        <span>${categoryName}: ${dish.name}</span>
+        <span class="text-primary">${formatPrice(dish.price)}</span>
+      `;
+
+          orderSummary.appendChild(itemDiv);
+          total += dish.price;
+        });
+
+        if (dishesTotalEl) dishesTotalEl.textContent = formatPrice(total);
+        if (orderTotalEl) orderTotalEl.textContent = formatPrice(total);
+      }
+
+      // Получение русского названия категории
+      function getCategoryName(categoryKey) {
+        const names = {
+          soup: "Суп",
+          "main-course": "Главное блюдо",
+          mainCourse: "Главное блюдо",
+          salad: "Салат",
+          drink: "Напиток",
+          dessert: "Десерт",
+        };
+        return names[categoryKey] || categoryKey;
+      }
+
+      // Инициализация выбора времени доставки
+      function initDeliveryTimePicker() {
+        const deliveryTimeInput = document.getElementById("delivery_time");
+
+        if (deliveryTimeInput) {
+          flatpickr(deliveryTimeInput, {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            time_24hr: true,
+            minuteIncrement: 5,
+            minTime: "07:00",
+            maxTime: "23:00",
+            locale: "ru",
+            defaultHour: 12,
+            defaultMinute: 0,
+          });
+        }
+      }
+
+      // Переключение типа доставки
+      function initDeliveryTypeToggle() {
+        const deliveryNow = document.getElementById("delivery_now");
+        const deliveryByTime = document.getElementById("delivery_by_time");
+        const deliveryTimeGroup = document.getElementById(
+          "delivery_time_group"
+        );
+        const deliveryTimeInput = document.getElementById("delivery_time");
+
+        if (deliveryNow && deliveryByTime) {
+          deliveryNow.addEventListener("change", function () {
+            if (this.checked) {
+              if (deliveryTimeGroup) deliveryTimeGroup.style.display = "none";
+              if (deliveryTimeInput)
+                deliveryTimeInput.removeAttribute("required");
+            }
+          });
+
+          deliveryByTime.addEventListener("change", function () {
+            if (this.checked) {
+              if (deliveryTimeGroup) deliveryTimeGroup.style.display = "block";
+              if (deliveryTimeInput)
+                deliveryTimeInput.setAttribute("required", "required");
+            }
+          });
+        }
+      }
+
+      // Инициализация формы заказа
+      function initOrderForm() {
+        const orderForm = document.getElementById("order-form");
+        const submitButton = document.getElementById("submit-order");
+
+        if (!orderForm) return;
+
+        // Заполняем форму данными пользователя из localStorage, если они есть
+        const userData = getUserData();
+        if (userData && userData.full_name)
+          orderForm.full_name.value = userData.full_name || "";
+        if (userData && userData.email)
+          orderForm.email.value = userData.email || "";
+        if (userData && userData.phone)
+          orderForm.phone.value = userData.phone || "";
+        if (userData && userData.delivery_address)
+          orderForm.delivery_address.value = userData.delivery_address || "";
+
+        // Обработчик отправки формы
+        orderForm.addEventListener("submit", async function (e) {
+          e.preventDefault();
+          console.log("Форма отправлена");
+
+          // Проверяем валидность заказа
+          if (!checkOrderValidity()) {
+            console.log("Заказ невалиден");
+            const notification = getNotificationText
+              ? getNotificationText()
+              : { text: "Заказ не соответствует требованиям", type: "warning" };
+            showNotification(notification.text, notification.type);
+            return;
+          }
+
+          // Проверяем валидность формы
+          if (!this.checkValidity()) {
+            console.log("Форма невалидна");
+            this.classList.add("was-validated");
+            return;
+          }
+
+          // Блокируем кнопку отправки
+          if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.innerHTML =
+              '<span class="spinner-border spinner-border-sm me-2"></span> Оформляем заказ...';
+          }
+
+          try {
+            // Собираем данные формы
+            const formData = new FormData(this);
+            const orderData = Object.fromEntries(formData.entries());
+
+            console.log("Данные формы:", orderData);
+
+            // Добавляем данные о блюдах
+            const selectedDishes = getSelectedDishes();
+            console.log("Выбранные блюда:", selectedDishes);
+
+            const dishIds = {};
+
+            selectedDishes.forEach((dish) => {
+              switch (dish.category) {
+                case "soup":
+                  dishIds.soup_id = dish.id;
+                  break;
+                case "main-course":
+                  dishIds.main_course_id = dish.id;
+                  break;
+                case "salad":
+                  dishIds.salad_id = dish.id;
+                  break;
+                case "drink":
+                  dishIds.drink_id = dish.id;
+                  break;
+                case "dessert":
+                  dishIds.dessert_id = dish.id;
+                  break;
+              }
+            });
+
+            // Объединяем данные
+            const completeOrderData = {
+              ...orderData,
+              ...dishIds,
+              subscribe: orderData.subscribe === "1" ? 1 : 0,
+              delivery_type:
+                orderData.delivery_type === "by_time" ? "by_time" : "now",
+              student_id: API_CONFIG ? API_CONFIG.STUDENT_ID : 1,
+            };
+
+            console.log("Полные данные заказа:", completeOrderData);
+
+            // Отправляем заказ на сервер
+            const result = await submitOrderToServer(completeOrderData);
+            console.log("Результат отправки заказа:", result);
+
+            if (result.success) {
+              // Сохраняем данные пользователя для будущих заказов
+              saveUserData({
+                full_name: orderData.full_name,
+                email: orderData.email,
+                phone: orderData.phone,
+                delivery_address: orderData.delivery_address,
+              });
+
+              // Показываем сообщение об успехе
+              console.log("Показываем success modal с заказом:", result.order);
+              showSuccessModal(result.order);
+
+              // Очищаем заказ и форму
+              if (typeof clearOrder === "function") {
+                clearOrder();
+              }
+              if (typeof resetCurrentOrder === "function") {
+                resetCurrentOrder();
+              }
+
+              // Очищаем форму
+              orderForm.reset();
+              document.getElementById("delivery_time_group").style.display =
+                "none";
+            } else {
+              throw new Error(
+                result.error || "Неизвестная ошибка при оформлении заказа"
+              );
+            }
+          } catch (error) {
+            console.error("Ошибка при оформлении заказа:", error);
+            showNotification(`Ошибка: ${error.message}`, "error");
+          } finally {
+            // Разблокируем кнопку
+            if (submitButton) {
+              submitButton.disabled = false;
+              submitButton.innerHTML =
+                '<i class="bi bi-check-circle me-2"></i> Оформить заказ';
+            }
+          }
+        });
+
+        // Добавляем обработчики для удаления блюд
+        document.addEventListener("click", function (e) {
+          if (e.target.closest(".remove-from-order")) {
+            const button = e.target.closest(".remove-from-order");
+            const category = button.dataset.category;
+
+            removeDishFromOrder(category);
+            loadOrderComposition(); // Перезагружаем отображение
+          }
+        });
+      }
+
+      // Проверка валидности заказа
+      function checkOrderValidity() {
+        const isValid = validateOrderCombo ? validateOrderCombo() : false;
+        const submitButton = document.getElementById("submit-order");
+
+        if (submitButton) {
+          if (isValid) {
+            submitButton.disabled = false;
+            return true;
+          } else {
+            submitButton.disabled = true;
+            return false;
+          }
+        }
+        return false;
+      }
+
+      // Подтверждение очистки заказа
+      function clearOrderConfirmation() {
+        const selectedDishes = getSelectedDishes ? getSelectedDishes() : [];
+
+        if (selectedDishes.length === 0) {
+          showNotification("Заказ уже пуст", "info");
+          return;
+        }
+
+        createConfirmationModal(
+          "Очистить заказ?",
+          "Вы уверены, что хотите удалить все блюда из заказа?",
+          "danger",
+          function () {
+            clearOrder();
+            loadOrderComposition();
+            showNotification("Заказ очищен", "success");
+          }
+        );
+      }
+
+      // Функция для создания модального окна подтверждения
+      function createConfirmationModal(title, message, type, onConfirm) {
+        const modalId = "confirmation-modal-" + Date.now();
+
+        const modalHTML = `
+      <div class="modal fade" id="${modalId}" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header border-0">
+              <h5 class="modal-title">${title}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center py-4">
+              <div class="mb-3">
+                ${
+                  type === "success"
+                    ? '<i class="bi bi-check-circle display-4 text-success"></i>'
+                    : ""
+                }
+                ${
+                  type === "error"
+                    ? '<i class="bi bi-x-circle display-4 text-danger"></i>'
+                    : ""
+                }
+                ${
+                  type === "warning"
+                    ? '<i class="bi bi-exclamation-triangle display-4 text-warning"></i>'
+                    : ""
+                }
+                ${
+                  type === "info"
+                    ? '<i class="bi bi-info-circle display-4 text-primary"></i>'
+                    : ""
+                }
+              </div>
+              <p class="lead">${message}</p>
+            </div>
+            <div class="modal-footer border-0 justify-content-center">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Отмена
+              </button>
+              <button type="button" class="btn btn-${type}" id="confirm-button">
+                Подтвердить
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+        // Добавляем модальное окно в DOM
+        const modalContainer =
+          document.getElementById("modal-container") || createModalContainer();
+        modalContainer.innerHTML = modalHTML;
+
+        // Показываем модальное окно
+        const modalElement = document.getElementById(modalId);
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
+
+        // Обработчик подтверждения
+        document
+          .getElementById("confirm-button")
+          .addEventListener("click", function () {
+            if (typeof onConfirm === "function") {
+              onConfirm();
+            }
+            modal.hide();
+          });
+
+        return modal;
+      }
+
+      // Создание контейнера для модальных окон
+      function createModalContainer() {
+        const container = document.createElement("div");
+        container.id = "modal-container";
+        document.body.appendChild(container);
+        return container;
+      }
+    </script>
+  </body>
+</html>

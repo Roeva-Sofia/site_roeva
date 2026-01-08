@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Собрать ланч - Food Construct</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Стили -->
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/assemble-lunch.css" />
+    <link rel="stylesheet" href="css/print.css" media="print" />
+
+    <!-- Иконки Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+    />
+  </head>
+  <body>
+    <!-- Шапка сайта -->
+    <header class="header">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="index.html">
+            <h1 class="mb-0">Food Construct</h1>
+          </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Главная</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="assemble-lunch.html"
+                  >Собрать ланч</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="make-order.html">Оформить заказ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="orders.html">Мои заказы</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="login.html">Вход</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#contacts">Контакты</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Основное содержимое -->
+    <main class="container py-5 mt-5">
+      <div class="row">
+        <!-- Левая колонка - Меню с фильтрами -->
+        <div class="col-lg-8">
+          <h2 class="mb-4">Соберите свой идеальный ланч</h2>
+
+          <!-- Доступные комбо (ЛР6) -->
+          <section class="available-combos mb-5">
+            <h4 class="mb-3">Доступные для заказа комбо</h4>
+            <div class="row g-3 mb-4">
+              <div class="col-md">
+                <div class="combo-card p-3 border rounded text-center">
+                  <h6>Комбо 1</h6>
+                  <p class="mb-1 small">
+                    Суп + Главное блюдо + Салат + Напиток
+                  </p>
+                </div>
+              </div>
+              <div class="col-md">
+                <div class="combo-card p-3 border rounded text-center">
+                  <h6>Комбо 2</h6>
+                  <p class="mb-1 small">Суп + Главное блюдо + Напиток</p>
+                </div>
+              </div>
+              <div class="col-md">
+                <div class="combo-card p-3 border rounded text-center">
+                  <h6>Комбо 3</h6>
+                  <p class="mb-1 small">Суп + Салат + Напиток</p>
+                </div>
+              </div>
+              <div class="col-md">
+                <div class="combo-card p-3 border rounded text-center">
+                  <h6>Комбо 4</h6>
+                  <p class="mb-1 small">Главное блюдо + Салат + Напиток</p>
+                </div>
+              </div>
+              <div class="col-md">
+                <div class="combo-card p-3 border rounded text-center">
+                  <h6>Комбо 5</h6>
+                  <p class="mb-1 small">Главное блюдо + Напиток</p>
+                </div>
+              </div>
+            </div>
+            <div class="alert alert-info small">
+              <i class="bi bi-info-circle me-2"></i>
+              Десерт можно добавить к любому заказу
+            </div>
+          </section>
+
+          <!-- Категория: Супы -->
+          <section id="soups" class="category-section mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h3 class="mb-0">Выберите суп</h3>
+              <div class="filter-buttons">
+                <button
+                  class="btn btn-sm btn-outline-primary filter-btn active"
+                  data-category="soup"
+                  data-kind="all"
+                >
+                  Все
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-primary filter-btn"
+                  data-category="soup"
+                  data-kind="fish"
+                >
+                  Рыбный
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-primary filter-btn"
+                  data-category="soup"
+                  data-kind="meat"
+                >
+                  Мясной
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-primary filter-btn"
+                  data-category="soup"
+                  data-kind="veg"
+                >
+                  Вегетарианский
+                </button>
+              </div>
+            </div>
+            <div class="row g-4 dishes-container" data-category="soup">
+              <!-- Супы будут загружены динамически через JS -->
+              <div class="col-12 text-center">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Загрузка...</span>
+                </div>
+                <p class="mt-2">Загружаем супы...</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Категория: Главные блюда -->
+          <section id="main-dishes" class="category-section mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h3 class="mb-0">Выберите главное блюдо</h3>
+              <div class="filter-buttons">
+                <button
+                  class="btn btn-sm btn-outline-primary filter-btn active"
+                  data-category="main-course"
+                  data-kind="all"
+                >
+                  Все
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-primary filter-btn"
+                  data-category="main-course"
+                  data-kind="fish"
+                >
+                  Рыбное
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-primary filter-btn"
+                  data-category="main-course"
+                  data-kind="meat"
+                >
+                  Мясное
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-primary filter-btn"
+                  data-category="main-course"
+                  data-kind="veg"
+                >
+                  Вегетарианское
+                </button>
+              </div>
+            </div>
+            <div class="row g-4 dishes-container" data-category="main-course">
+              <!-- Главные блюда будут загружены динамически -->
+              <div class="col-12 text-center">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Загрузка...</span>
+                </div>
+                <p class="mt-2">Загружаем главные блюда...</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Категория: Салаты и стартеры -->
+          <section id="salads" class="category-section mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h3 class="mb-0">Выберите салат или стартер</h3>
+              <div class="filter-buttons">
+                <button
+                  class="btn btn-sm btn-outline-primary filter-btn active"
+                  data-category="salad"
+                  data-kind="all"
+                >
+                  Все
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-primary filter-btn"
+                  data-category="salad"
+                  data-kind="fish"
+                >
+                  Рыбный
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-primary filter-btn"
+                  data-category="salad"
+                  data-kind="meat"
+                >
+                  Мясной
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-primary filter-btn"
+                  data-category="salad"
+                  data-kind="veg"
+                >
+                  Вегетарианский
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-primary filter-btn"
+                  data-category="salad"
+                  data-kind="small"
+                >
+                  Маленькая порция
+                </button>
+              </div>
+            </div>
+            <div class="row g-4 dishes-container" data-category="salad">
+              <!-- Салаты будут загружены динамически -->
+              <div class="col-12 text-center">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Загрузка...</span>
+                </div>
+                <p class="mt-2">Загружаем салаты...</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Категория: Напитки -->
+          <section id="drinks" class="category-section mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h3 class="mb-0">Выберите напиток</h3>
+              <div class="filter-buttons">
+                <button
+                  class="btn btn-sm btn-outline-primary filter-btn active"
+                  data-category="drink"
+                  data-kind="all"
+                >
+                  Все
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-primary filter-btn"
+                  data-category="drink"
+                  data-kind="cold"
+                >
+                  Холодный
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-primary filter-btn"
+                  data-category="drink"
+                  data-kind="hot"
+                >
+                  Горячий
+                </button>
+              </div>
+            </div>
+            <div class="row g-4 dishes-container" data-category="drink">
+              <!-- Напитки будут загружены динамически -->
+              <div class="col-12 text-center">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Загрузка...</span>
+                </div>
+                <p class="mt-2">Загружаем напитки...</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Категория: Десерты -->
+          <section id="desserts" class="category-section mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h3 class="mb-0">Выберите десерт</h3>
+              <div class="filter-buttons">
+                <button
+                  class="btn btn-sm btn-outline-primary filter-btn active"
+                  data-category="dessert"
+                  data-kind="all"
+                >
+                  Все
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-primary filter-btn"
+                  data-category="dessert"
+                  data-kind="small"
+                >
+                  Маленькая порция
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-primary filter-btn"
+                  data-category="dessert"
+                  data-kind="medium"
+                >
+                  Средняя порция
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-primary filter-btn"
+                  data-category="dessert"
+                  data-kind="large"
+                >
+                  Большая порция
+                </button>
+              </div>
+            </div>
+            <div class="row g-4 dishes-container" data-category="dessert">
+              <!-- Десерты будут загружены динамически -->
+              <div class="col-12 text-center">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Загрузка...</span>
+                </div>
+                <p class="mt-2">Загружаем десерты...</p>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Правая колонка - Панель заказа -->
+        <div class="col-lg-4">
+          <div class="order-panel sticky-top" style="top: 90px">
+            <div class="card shadow">
+              <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Ваш заказ</h4>
+              </div>
+              <div class="card-body">
+                <!-- Динамически обновляемый раздел заказа -->
+                <div id="order-summary">
+                  <div class="text-center text-muted py-4">
+                    <i class="bi bi-cart display-4 text-muted"></i>
+                    <p class="mt-2">Выберите блюда из меню</p>
+                  </div>
+                </div>
+
+                <!-- Стоимость заказа -->
+                <div id="order-total" class="d-none">
+                  <hr />
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <h5 class="mb-0">Стоимость заказа:</h5>
+                    <h4 class="mb-0 text-primary" id="total-price">0 ₽</h4>
+                  </div>
+                </div>
+
+                <!-- Кнопка перехода к оформлению -->
+                <div class="mt-4">
+                  <button
+                    id="proceed-to-order"
+                    class="btn btn-primary w-100 btn-lg"
+                    disabled
+                  >
+                    Перейти к оформлению
+                  </button>
+                  <button
+                    id="clear-order"
+                    class="btn btn-outline-danger btn-lg"
+                    title="Очистить заказ"
+                  >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                  <p class="text-muted small mt-2">
+                    Доступно после выбора одного из комбо
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Информация о доставке -->
+            <div class="card mt-3">
+              <div class="card-body">
+                <h5>Информация о доставке</h5>
+                <ul class="list-unstyled small">
+                  <li>
+                    <i class="bi bi-check-circle text-success me-2"></i
+                    >Бесплатная доставка
+                  </li>
+                  <li>
+                    <i class="bi bi-check-circle text-success me-2"></i
+                    >Ежедневно с 7:00 до 23:00
+                  </li>
+                  <li>
+                    <i class="bi bi-check-circle text-success me-2"></i>Только
+                    по Москве
+                  </li>
+                  <li>
+                    <i class="bi bi-check-circle text-success me-2"></i>Точное
+                    время доставки
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Футер -->
+    <footer id="contacts" class="footer bg-dark text-white py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <h3 class="mb-4">Контакты</h3>
+            <p><i class="bi bi-telephone me-2"></i> +7-000-000-00-00</p>
+            <p><i class="bi bi-envelope me-2"></i> info@foodconstruct.ru</p>
+            <p><i class="bi bi-clock me-2"></i> Ежедневно с 7:00 до 23:00</p>
+            <p>
+              <i class="bi bi-geo-alt me-2"></i> Москва, доставка по всему
+              городу
+            </p>
+          </div>
+          <div class="col-lg-6">
+            <h3 class="mb-4">Остались вопросы?</h3>
+            <p>Напишите нам, и мы ответим в течение 30 минут</p>
+            <a href="index.html#contacts" class="btn btn-outline-light"
+              >Написать сообщение</a
+            >
+          </div>
+        </div>
+        <div class="row mt-4 pt-4 border-top">
+          <div class="col text-center">
+            <p class="mb-0">&copy; 2025 Food Construct. Все права защищены.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Наши скрипты -->
+    <script src="js/config.js"></script>
+    <script src="js/localStorage.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/dishes.js"></script>
+    <script src="js/order.js"></script>
+    <script src="js/validation.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/clearOrder.js"></script>
+    <script src="js/auth.js"></script>
+
+    <!-- Инициализация страницы -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log("Страница 'Собрать ланч' загружена");
+
+        // Инициализация авторизации
+        if (typeof initAuth === 'function') {
+            initAuth();
+        }
+
+        // Принудительная инициализация заказа
+        if (typeof initializeCurrentOrder === "function") {
+          initializeCurrentOrder();
+        } else if (typeof initOrderFromStorage === "function") {
+          initOrderFromStorage();
+        }
+
+        // Загружаем блюда с сервера
+        loadDishes();
+
+        // Обработчик кнопки перехода к оформлению
+        document
+          .getElementById("proceed-to-order")
+          .addEventListener("click", function () {
+            console.log("Нажата кнопка 'Перейти к оформлению'");
+
+            // Сохраняем заказ перед переходом
+            if (typeof saveOrderToStorage === "function") {
+              saveOrderToStorage();
+            }
+
+            // Двойная проверка сохранения
+            const checkOrder = localStorage.getItem(
+              "foodconstruct_current_order"
+            );
+            console.log("Проверка сохранения в localStorage:", checkOrder);
+
+            // Проверяем валидность заказа
+            if (validateOrderCombo()) {
+              console.log("Заказ валиден, переход на страницу оформления");
+
+              // Добавляем параметр для принудительной загрузки
+              window.location.href =
+                "make-order.html?forceLoad=true&t=" + Date.now();
+            } else {
+              console.log("Заказ невалиден, показываем уведомление");
+              const notification = getNotificationText();
+              showNotification(notification.text, notification.type);
+            }
+          });
+
+        // Обновляем состояние кнопки при изменении заказа
+        updateOrderButton();
+
+        document
+          .getElementById("clear-order")
+          ?.addEventListener("click", function () {
+            if (confirm("Вы уверены, что хотите очистить текущий заказ?")) {
+              if (typeof resetCurrentOrder === "function") {
+                resetCurrentOrder();
+                showNotification(
+                  "Заказ очищен. Можно собрать новый!",
+                  "success"
+                );
+              } else if (typeof clearOrder === "function") {
+                clearOrder();
+              }
+            }
+          });
+      });
+    </script>
+  </body>
+</html>

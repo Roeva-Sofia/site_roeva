@@ -1,0 +1,126 @@
+/* Стили для страницы оформления заказа */
+
+/* Карточки блюд в заказе */
+.dish-order-card {
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.dish-order-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-color: #ff6b6b;
+}
+
+.dish-order-card .card-img-top {
+  height: 150px;
+  object-fit: cover;
+}
+
+.dish-order-card .card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.dish-order-card .price {
+  font-weight: 700;
+  color: #ff6b6b;
+  font-size: 1.1rem;
+}
+
+.dish-order-card .remove-from-order {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+/* Сводка заказа в форме */
+.order-summary-item {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.order-summary-item:last-child {
+  border-bottom: none;
+}
+
+/* Форма оформления заказа */
+#order-form .form-label {
+  font-weight: 500;
+  color: #333;
+}
+
+#order-form .form-control:focus {
+  border-color: #ff6b6b;
+  box-shadow: 0 0 0 0.25rem rgba(255, 107, 107, 0.25);
+}
+
+#order-form .form-check-input:checked {
+  background-color: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
+#order-form .form-check-input:focus {
+  border-color: #ff6b6b;
+  box-shadow: 0 0 0 0.25rem rgba(255, 107, 107, 0.25);
+}
+
+/* Поле выбора времени */
+.flatpickr-input {
+  background-color: white;
+  cursor: pointer;
+}
+
+/* Кнопки */
+#submit-order {
+  padding: 0.75rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+#submit-order:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+#submit-order:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+#clear-order {
+  transition: all 0.3s ease;
+}
+
+#clear-order:hover {
+  transform: translateY(-1px);
+}
+
+/* Сообщение о пустом заказе */
+#empty-order-message {
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 2px dashed #dee2e6;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .dish-order-card .card-img-top {
+    height: 120px;
+  }
+
+  #order-form {
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .dish-order-card {
+    margin-bottom: 1rem;
+  }
+
+  #order-form .btn {
+    padding: 0.75rem;
+  }
+}
